@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BMI計算機
+namespace BMI計算機 
 {
     public partial class frmBMI : Form
     {
