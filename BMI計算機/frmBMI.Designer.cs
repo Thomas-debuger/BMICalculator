@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.grpInput = new System.Windows.Forms.GroupBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
             this.txtWeight = new System.Windows.Forms.TextBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
@@ -43,6 +44,7 @@
             // 
             // grpInput
             // 
+            this.grpInput.Controls.Add(this.btnClear);
             this.grpInput.Controls.Add(this.btnRun);
             this.grpInput.Controls.Add(this.txtWeight);
             this.grpInput.Controls.Add(this.txtHeight);
@@ -51,10 +53,20 @@
             this.grpInput.Font = new System.Drawing.Font("微軟正黑體", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.grpInput.Location = new System.Drawing.Point(28, 33);
             this.grpInput.Name = "grpInput";
-            this.grpInput.Size = new System.Drawing.Size(350, 180);
+            this.grpInput.Size = new System.Drawing.Size(471, 180);
             this.grpInput.TabIndex = 0;
             this.grpInput.TabStop = false;
             this.grpInput.Text = "輸入";
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(350, 89);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 27);
+            this.btnClear.TabIndex = 5;
+            this.btnClear.Text = "清除";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnRun
             // 
@@ -108,7 +120,7 @@
             this.grpOutput.Font = new System.Drawing.Font("微軟正黑體", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.grpOutput.Location = new System.Drawing.Point(28, 271);
             this.grpOutput.Name = "grpOutput";
-            this.grpOutput.Size = new System.Drawing.Size(350, 109);
+            this.grpOutput.Size = new System.Drawing.Size(689, 109);
             this.grpOutput.TabIndex = 1;
             this.grpOutput.TabStop = false;
             this.grpOutput.Text = "計算結果";
@@ -165,6 +177,7 @@
         private System.Windows.Forms.TextBox txtHeight;
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.Button btnRun;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 
