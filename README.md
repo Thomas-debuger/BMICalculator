@@ -1,78 +1,64 @@
-# 🚀 WinForms BMI Calculator Pro
+# 🚀 WinForms BMI Calculator Pro (進階魔改版)
 
-這是一款專為極致操作體驗打造的進階版 BMI 計算機。跳脫傳統 WinForms 的框架限制，本專案結合了**全鍵盤無滑鼠操作**、**GDI+ 自訂渲染美學**以及**動態資料與檔案管理**功能。無論是日常健康追蹤，或是健身愛好者在增肌、減脂期的體態紀錄，都能提供最流暢且專業的使用體驗。
+這是我為了挑戰 C# WinForms 框架極限所開發的 BMI 計算機。
 
-本專案為元智大學資訊工程學系之實作項目，展現了對底層作業系統 API 呼叫、視窗訊息攔截機制 (Message Filtering) 與 `using` 記憶體安全釋放的深入理解。
+原本的作業要求只是做個簡單的 BMI 計算，但我不想只交一個死板的灰色原生視窗交差。因此，我在這個專案中實作了 **OS 級別的全域按鍵攔截**、**GDI+ 底層 UI 重繪**，以及完整的 **File I/O 狀態管理**，試圖在老舊的 WinForms 框架上，打造出符合現代 UX 標準的「純鍵盤 (Keyboard-First)」操作體驗。
+
+## 💡 技術亮點與實作細節 (Technical Highlights)
+
+不只是會動而已，這個專案解決了幾個 WinForms 開發常見的痛點：
+
+### 1. 🎨 深度 UI 魔改 (Custom GDI+ Rendering)
+原生 WinForms 的元件樣式非常受限。為此，我覆寫 (Override) 了 `OnPaintBackground` 與按鈕的 `Paint` 事件，利用 `LinearGradientBrush` 自己刻出平滑的垂直漸層，並實作了一鍵切換「漸層 / 純色 (Flat UI)」的渲染邏輯。
+* **API Interop**: 拒絕在 TextBox 旁邊放醜醜的 Label，我直接 `DllImport` 呼叫 Windows 底層 API (`user32.dll` 的 `SendMessage`)，把提示字串以原生浮水印 (CueBanner) 的方式刻進輸入框裡。
+
+### 2. ⌨️ 真正的 100% 無滑鼠操作 (Message Filtering)
+一般做快捷鍵只會綁 `KeyDown`，但只要焦點 (Focus) 跑到下拉選單，快捷鍵就會失效。
+為了達成絕對的「無滑鼠操作」，我讓 Form 繼承了 `IMessageFilter`，直接在作業系統派發訊息的底層攔截 `WM_KEYDOWN` (0x0100)。現在不管焦點在哪，`Ctrl+A~G` 的快捷鍵都能強制執行。
+
+### 3. 💾 動態生成對話框與 I/O (File I/O & Memory Management)
+* **狀態儲存**: 支援動態將目前的計算狀態存入 `MenuStrip` 的 `Tag` 中。因為不想依賴老舊的 `Microsoft.VisualBasic.Interaction`，我用純 code 動態 `new` 了一個輸入對話框 (InputBox)。
+* **防範 Memory Leak**: 所有動態生成的 Form 與 ColorDialog，我都嚴格使用 `using` 區塊包覆，確保對話框關閉後資源會被 Garbage Collector 確實回收。
+* **資料匯出**: 實作了 `SaveFileDialog` 與 `StringBuilder`，能將記憶體中的多筆紀錄格式化後匯出成 `.txt` 檔案，達成基本的資料持久化。
+
+### 4. 🛡️ 無干擾防呆機制 (Non-Intrusive Validation)
+傳統的防呆遇到錯誤就會無腦彈出 `MessageBox`，這對使用者極度干擾。
+我將所有格式轉換 (`TryParse`) 與數值邏輯錯誤（如負數或零），全部改為在主畫面的 `Label` 即時反白回饋，並透過程式自動 `Focus()` 與 `SelectAll()` 錯誤的欄位，確保使用者的雙手不用離開鍵盤去點擊「確定」。
 
 ---
 
-## ✨ 核心特色 (Key Features)
+## ⚡ 快捷鍵指南 (Shortcuts)
 
-* **🎨 深度客製化 UI (Custom GDI+ Rendering)**
-  * 捨棄原生 WinForms 呆板外觀，覆寫 `OnPaintBackground` 與 `Paint` 事件。
-  * 支援平滑的**垂直漸層渲染**與**純色扁平化 (Flat UI)** 雙風格，並提供一鍵無縫切換。
-  * 內建 `ColorDialog`，支援使用者自由定義背景、按鈕與輸入框文字的顏色。
-* **⌨️ 100% 無滑鼠挑戰 (Keyboard-Only Operation)**
-  * 精確配置 `TabIndex`，從輸入到計算一氣呵成。
-  * 實作 `IMessageFilter` 進行作業系統層級的**全域按鍵攔截**，即使焦點在特定元件上，快捷鍵依然能精準觸發。
-* **💾 動態紀錄與檔案匯出 (State Management & I/O)**
-  * 支援在程式運行期間動態儲存與載入多組個人的身高體重紀錄（例如：「本月增肌期」、「極限減脂期」）。
-  * 純程式碼動態生成 `InputBox` 對話框。
-  * 整合 `System.IO` 與 `SaveFileDialog`，支援將所有紀錄**格式化匯出成 `.txt` 文字檔**，落實資料持久化。
-* **🛡️ 無干擾防呆機制 (Non-Intrusive Validation)**
-  * 徹底消滅傳統惹人厭的 `MessageBox` 錯誤彈窗。
-  * 具備全字元輸入容錯（自動阻擋亂碼、負數、零），錯誤發生時自動反白錯誤欄位，並於主畫面即時回饋視覺警示。
+系統設計為可完全脫離滑鼠操作，以下為實作的快捷鍵綁定：
 
----
-
-## ⚡ 終極快捷鍵指南 (Shortcut Keys)
-
-本系統提供極致的快捷操作，雙手無需離開鍵盤即可完成所有功能：
-
-| 快捷鍵 | 功能描述 | 觸發動作 |
+| 快捷鍵 | 觸發動作 | 開發備註 |
 | :--- | :--- | :--- |
-| `Enter` | 自動焦點轉移 / 執行 | 在身高欄位按 `Enter` 跳至體重，在體重欄位按 `Enter` 執行計算 |
-| `Ctrl + M` | 紀錄管理選單 | 展開 / 收起「紀錄管理」主選單 |
-| `Ctrl + S` | 儲存紀錄 | 快速儲存當前輸入的身高與體重資料 |
-| `Ctrl + L` | 載入紀錄 | 展開「載入資料」清單，以利選擇歷史紀錄 |
-| `Ctrl + F` | **匯出紀錄** | 將目前所有儲存的資料匯出為 TXT 格式 |
-| `Ctrl + A` | 個性化選單 | 展開 / 收起「個性化顏色」主選單 |
-| `Ctrl + B` | 更改背景色 | 呼叫系統調色盤，自訂**視窗背景**顏色 |
-| `Ctrl + C` | 更改按鈕色 | 呼叫系統調色盤，自訂**按鈕**顏色 |
-| `Ctrl + D` | 更改文字色 | 呼叫系統調色盤，自訂**輸入框文字**顏色 |
-| `Ctrl + E` | **切換漸層** | 一鍵開關背景與按鈕的**漸層渲染**效果 |
-| `Ctrl + G` | 關於本系統 | 顯示系統開發資訊與功能簡介 |
+| `Enter` | 欄位跳轉 / 執行計算 | 攔截 Enter 原生行為，自訂焦點移轉 (`SelectAll`) |
+| `Ctrl + M` | 展開/收起「紀錄管理」 | |
+| `Ctrl + S` | 儲存紀錄 | 動態生成 InputBox 寫入記憶體 |
+| `Ctrl + L` | 展開「載入資料」 | 讀取 ToolStripMenuItem.Tag 並觸發重算 |
+| `Ctrl + F` | **匯出紀錄至 TXT** | 呼叫 SaveFileDialog 進行檔案 I/O |
+| `Ctrl + A` | 展開/收起「個性化」 | |
+| `Ctrl + B` | 更改視窗背景色 | 呼叫 ColorDialog |
+| `Ctrl + C` | 更改按鈕顏色 | 呼叫 ColorDialog |
+| `Ctrl + D` | 更改文字顏色 | 呼叫 ColorDialog |
+| `Ctrl + E` | **切換渲染模式** | 觸發 `Invalidate()` 重新繪製漸層/純色 UI |
+| `Ctrl + G` | 關於本系統 | |
 
-> 💡 **調色盤鍵盤操作提示：**
-> 當使用 `Ctrl+B/C/D` 呼叫出 Windows 內建調色盤時，請使用方向鍵 `↑ ↓ ← →` 移動至目標顏色，**先按下 `Space (空白鍵)` 確實選取顏色後**，再按下 `Enter` 確認送出。
-
----
-
-## 🚀 執行說明 (How to Run)
-
-1. **環境需求**：
-   * Visual Studio 2019 或更新版本。
-   * .NET Framework 4.7.2 (或相容版本)。
-2. **建置與執行**：
-   * 雙擊開啟 `BMI計算機.sln` 解決方案檔。
-   * 按下 `F5` 或點擊頂部工具列的「開始」進行編譯並執行。
-3. **操作測試**：
-   * 直接於鍵盤輸入身高 (如 `163`)，按 `Enter`。
-   * 輸入體重，再按 `Enter` 觀看結果與顏色變化。
-   * 嘗試按下 `Ctrl + B` 調整背景色，或按 `Ctrl + E` 切換成純色模式。
-   * 按下 `Ctrl + S` 儲存一筆名為「測試」的紀錄，再按 `Ctrl + F` 將其匯出至桌面檢視。
+> ⚠️ **開發者踩坑筆記 (ColorDialog 鍵盤操作 issue)：**
+> Windows 內建的 `ColorDialog` 在純鍵盤操作下有個反人類的設計：用方向鍵移動到目標顏色後，**必須先按 `Space (空白鍵)` 確實選取**，才能按 `Enter`。如果直接按 Enter 會回傳預設的黑色，導致漸層渲染壞掉。為此我已在程式碼中塞入 `cd.Color = current` 作為初始值防呆，但也在此特別備註給其他開發者參考。
 
 ---
 
-## 📸 程式截圖 (Screenshots)
+## 🚀 環境與執行 (How to Run)
 
-*(請在 GitHub 網頁端將您的程式實際執行畫面截圖，並拖曳到此處替換下方文字)*
+1. **開發環境**：Visual Studio (C# .NET Framework)。
+2. **執行方式**：打開 `BMI計算機.sln`，按下 `F5` 即可編譯執行。
+3. **快速測試建議**：
+   * 直接打字 (例如身高 `175` -> `Enter` -> 體重 `70` -> `Enter`)。
+   * 試著輸入英文字母或 `-5` 測試防呆機制是否不會彈出惱人視窗。
+   * 按下 `Ctrl + B` 換個顏色，再按 `Ctrl + E` 看看 UI 渲染模式的切換。
+   * 按下 `Ctrl + S` 隨便存個紀錄，接著按 `Ctrl + F` 匯出文字檔檢查 I/O 功能。
 
-* **主畫面與漸層 UI 展示**
-  `[在此放入主畫面截圖]`
-
-* **錯誤防呆機制回饋**
-  `[在此放入輸入負數或錯誤字元時的紅色警告截圖]`
-
-* **匯出 TXT 檔案成果**
-  `[在此放入匯出成功的文字檔內容截圖]`
+---
+*Author: 元智大學 資訊工程學系*
