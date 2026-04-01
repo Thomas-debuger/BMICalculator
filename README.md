@@ -68,9 +68,8 @@
 
 ### 3. 動態紀錄管理與 TXT 檔案匯出成果
 
-<img width="1384" height="897" alt="螢幕擷取畫面 2026-04-01 151244" src="https://github.com/user-attachments/assets/ab8bce2e-152d-4dad-8e55-1addd362812c" />
-
 <img width="1392" height="907" alt="螢幕擷取畫面 2026-04-01 151223" src="https://github.com/user-attachments/assets/60191b86-8192-4d32-a80d-e198767a88f9" />
 
+<img width="1384" height="897" alt="螢幕擷取畫面 2026-04-01 151244" src="https://github.com/user-attachments/assets/ab8bce2e-152d-4dad-8e55-1addd362812c" />
 
 > 透過 `System.IO` 與 `SaveFileDialog`，將記憶體中的多筆 BMI 紀錄格式化並輸出至純文字檔的實測結果。
