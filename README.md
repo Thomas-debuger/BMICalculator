@@ -59,6 +59,8 @@
 
 ### 2. 無干擾防呆機制與錯誤攔截實測
 
+<img width="1391" height="905" alt="螢幕擷取畫面 2026-04-01 151024" src="https://github.com/user-attachments/assets/8a9cf8b0-a601-49f4-972b-e328108277f4" />
+
 <img width="1391" height="907" alt="螢幕擷取畫面 2026-04-01 151117" src="https://github.com/user-attachments/assets/7b21c037-94c3-4a0b-a855-cca0136f54be" />
 
 
