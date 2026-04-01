@@ -1,12 +1,12 @@
-# 🚀 WinForms BMI Calculator Pro (進階魔改版)
+# WinForms BMI Calculator Pro (進階魔改版)
 
-## 📝 專案簡介
+## 專案簡介
 
 這是我為了挑戰 C# WinForms 框架極限所開發的 BMI 計算機，同時也是元智大學資訊工程學系的實作專案。
 
 原本的作業要求只是實作基礎的 BMI 運算，但我希望能突破原生 WinForms 僵硬的灰色視窗限制。因此，我在這個專案中實作了 **OS 級別的全域按鍵攔截 (Message Filtering)**、**GDI+ 底層 UI 重繪 (Custom Rendering)**，以及完整的 **File I/O 狀態管理**，打造出符合現代 UX 標準、且能 100% 透過鍵盤驅動 (Keyboard-First) 的流暢操作體驗。
 
-### 💡 核心技術亮點：
+### 核心技術亮點：
 * **深度 UI 魔改**：覆寫 `OnPaintBackground`，利用 `LinearGradientBrush` 實作平滑垂直漸層，並支援一鍵無縫切換「漸層 / 純色扁平化」渲染模式。另外，直接呼叫 Windows 底層 API (`user32.dll`) 實作原生 TextBox 浮水印 (CueBanner)。
 * **絕對無滑鼠操作**：透過繼承 `IMessageFilter` 攔截作業系統底層的 `WM_KEYDOWN`，解決原生 WinForms 焦點落入選單後快捷鍵即失效的痛點，實現真正的全鍵盤控制。
 * **記憶體與狀態管理**：動態生成 InputBox 以寫入記憶體狀態，並嚴格利用 `using` 區塊確保動態資源 (Form, ColorDialog) 釋放，防止 Memory Leak。
@@ -14,7 +14,7 @@
 
 ---
 
-## 🚀 執行說明
+## 執行說明
 
 ### 1. 開發與執行環境
 * **IDE**: Visual Studio 2019 或更新版本
@@ -42,12 +42,12 @@
 | `Ctrl + E` | **切換渲染模式** | 觸發 `Invalidate()` 重新繪製漸層/純色 UI |
 | `Ctrl + G` | 關於本系統 | 顯示開發資訊 |
 
-> ⚠️ **開發者踩坑筆記 (ColorDialog 鍵盤操作 Issue)：**
+> **開發者踩坑筆記 (ColorDialog 鍵盤操作 Issue)：**
 > Windows 內建的 `ColorDialog` 在純鍵盤操作下有個反人類的設計：用方向鍵移動到目標顏色後，**必須先按 `Space (空白鍵)` 確實選取**，才能按 `Enter`。若直接按 Enter 會回傳預設黑色，導致漸層渲染破圖。我已在程式碼中塞入原顏色作為初始值防呆，特此備註。
 
 ---
 
-## 📸 專案截圖
+## 專案截圖
 
 *(說明：以下為系統實際運行之畫面截圖)*
 
