@@ -55,6 +55,9 @@
 
 <img width="1392" height="907" alt="螢幕擷取畫面 2026-04-01 214633" src="https://github.com/user-attachments/assets/2bb3afa6-53d2-4ee7-8ae4-08c062e07990" />
 
+<img width="1390" height="908" alt="螢幕擷取畫面 2026-04-01 215541" src="https://github.com/user-attachments/assets/f06b53da-d94a-4736-8c72-da2190638a61" />
+
+
 > 展示自訂的平滑漸層背景、按鈕渲染，以及底層 API 實作的 TextBox 浮水印效果。
 
 ### 2. 無干擾防呆機制與錯誤攔截實測
