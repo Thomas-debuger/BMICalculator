@@ -67,5 +67,10 @@
 > 輸入無效字元或負數時，系統不彈出 MessageBox，而是直接以紅色反白提示並鎖定錯誤欄位，維持鍵盤操作的流暢度。
 
 ### 3. 動態紀錄管理與 TXT 檔案匯出成果
-![歷史紀錄匯出截圖](請把你的TXT檔案截圖檔名寫在這裡.png)
+
+<img width="1384" height="897" alt="螢幕擷取畫面 2026-04-01 151244" src="https://github.com/user-attachments/assets/ab8bce2e-152d-4dad-8e55-1addd362812c" />
+
+<img width="1392" height="907" alt="螢幕擷取畫面 2026-04-01 151223" src="https://github.com/user-attachments/assets/60191b86-8192-4d32-a80d-e198767a88f9" />
+
+
 > 透過 `System.IO` 與 `SaveFileDialog`，將記憶體中的多筆 BMI 紀錄格式化並輸出至純文字檔的實測結果。
