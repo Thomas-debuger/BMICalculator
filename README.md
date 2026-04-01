@@ -1,4 +1,4 @@
-# WinForms BMI Calculator Pro (進階魔改版)
+# WinForms BMI Calculator Pro 
 
 ## 專案簡介
 
