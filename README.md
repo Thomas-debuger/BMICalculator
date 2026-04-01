@@ -52,13 +52,24 @@
 *(說明：以下為系統實際運行之畫面截圖)*
 
 ### 1. 主畫面與 GDI+ 漸層渲染展示
-![主畫面截圖](請把你的主畫面截圖檔名寫在這裡.png)
+
+<img width="1388" height="902" alt="螢幕擷取畫面 2026-04-01 150907" src="https://github.com/user-attachments/assets/0844b70b-85bc-4a90-9748-de4c456a03e6" />
+
 > 展示自訂的平滑漸層背景、按鈕渲染，以及底層 API 實作的 TextBox 浮水印效果。
 
 ### 2. 無干擾防呆機制與錯誤攔截實測
-![防呆機制截圖](請把你的防呆測試截圖檔名寫在這裡.png)
+
+<img width="1391" height="905" alt="螢幕擷取畫面 2026-04-01 151024" src="https://github.com/user-attachments/assets/8a9cf8b0-a601-49f4-972b-e328108277f4" />
+
+<img width="1391" height="907" alt="螢幕擷取畫面 2026-04-01 151117" src="https://github.com/user-attachments/assets/7b21c037-94c3-4a0b-a855-cca0136f54be" />
+
+
 > 輸入無效字元或負數時，系統不彈出 MessageBox，而是直接以紅色反白提示並鎖定錯誤欄位，維持鍵盤操作的流暢度。
 
 ### 3. 動態紀錄管理與 TXT 檔案匯出成果
-![歷史紀錄匯出截圖](請把你的TXT檔案截圖檔名寫在這裡.png)
+
+<img width="1392" height="907" alt="螢幕擷取畫面 2026-04-01 151223" src="https://github.com/user-attachments/assets/60191b86-8192-4d32-a80d-e198767a88f9" />
+
+<img width="1384" height="897" alt="螢幕擷取畫面 2026-04-01 151244" src="https://github.com/user-attachments/assets/ab8bce2e-152d-4dad-8e55-1addd362812c" />
+
 > 透過 `System.IO` 與 `SaveFileDialog`，將記憶體中的多筆 BMI 紀錄格式化並輸出至純文字檔的實測結果。
