@@ -54,6 +54,7 @@
 ### 1. 主畫面與 GDI+ 漸層渲染展示
 
 <img width="1388" height="902" alt="螢幕擷取畫面 2026-04-01 150907" src="https://github.com/user-attachments/assets/0844b70b-85bc-4a90-9748-de4c456a03e6" />
+
 > 展示自訂的平滑漸層背景、按鈕渲染，以及底層 API 實作的 TextBox 浮水印效果。
 
 ### 2. 無干擾防呆機制與錯誤攔截實測
