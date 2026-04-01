@@ -18,7 +18,7 @@ namespace BMI計算機
         private ToolStripMenuItem menuManage, menuSave, menuLoad, menuExport;
         private ToolStripMenuItem menuColor, menuBgColor, menuBtnColor, menuTxtColor;
         private ToolStripMenuItem menuToggleGradient;
-        private ToolStripMenuItem menuAbout; // [新增] 關於選單
+        private ToolStripMenuItem menuAbout;
 
         private Label lblKeyboardTip;
 
@@ -98,7 +98,7 @@ namespace BMI計算機
                             if (menuColor.DropDown.Visible) menuColor.HideDropDown();
                             MenuToggleGradient_Click(this, EventArgs.Empty);
                             return true;
-                        case Keys.G: // [修改] Ctrl + G: 關於本系統
+                        case Keys.G:
                             MenuAbout_Click(this, EventArgs.Empty);
                             return true;
                     }
@@ -111,7 +111,6 @@ namespace BMI計算機
         {
             topMenu = new MenuStrip { BackColor = Color.WhiteSmoke };
 
-            // 紀錄管理
             menuManage = new ToolStripMenuItem("紀錄管理(Ctrl+M)");
             menuSave = new ToolStripMenuItem("儲存當前資料(Ctrl+S)");
             menuSave.Click += MenuSave_Click;
@@ -127,7 +126,6 @@ namespace BMI計算機
             menuManage.DropDownItems.Add(new ToolStripSeparator());
             menuManage.DropDownItems.Add(menuExport);
 
-            // 個性化顏色
             menuColor = new ToolStripMenuItem("個性化顏色(Ctrl+A)");
             menuBgColor = new ToolStripMenuItem("背景顏色(Ctrl+B)");
             menuBgColor.Click += MenuBgColor_Click;
@@ -147,7 +145,6 @@ namespace BMI計算機
             menuColor.DropDownItems.Add(new ToolStripSeparator());
             menuColor.DropDownItems.Add(menuToggleGradient);
 
-            // 關於選單 [修改快捷鍵文字]
             menuAbout = new ToolStripMenuItem("關於(Ctrl+G)");
             menuAbout.Click += MenuAbout_Click;
 
@@ -158,9 +155,6 @@ namespace BMI計算機
             this.MainMenuStrip = topMenu;
         }
 
-        // ==========================================
-        // 關於本系統 邏輯
-        // ==========================================
         private void MenuAbout_Click(object sender, EventArgs e)
         {
             string aboutMsg = "【 BMI 計算機 Pro 版 】\n\n" +
@@ -329,14 +323,16 @@ namespace BMI計算機
             lblResult.ForeColor = Color.Black;
             lblResult.BackColor = Color.Transparent;
 
+            // [修改] 兩行提示文字，並調整高度與字體大小以完整呈現
             lblKeyboardTip = new Label();
-            lblKeyboardTip.Text = "💡 提示：用鍵盤選顏色時，請先按 [空白鍵] 選中顏色再按 [Enter]";
-            lblKeyboardTip.Font = new Font("微軟正黑體", 18F, FontStyle.Italic);
+            lblKeyboardTip.Text = "💡 提示：全程支援鍵盤操作！請使用 [Tab] 切換欄位與按鈕，並按下 [Enter] 完成所有步驟。\n" +
+                                  "💡 提示：用鍵盤選顏色時，請先按 [空白鍵] 選中顏色再按 [Enter]";
+            lblKeyboardTip.Font = new Font("微軟正黑體", 14F, FontStyle.Italic);
             lblKeyboardTip.ForeColor = Color.DimGray;
             lblKeyboardTip.BackColor = Color.Transparent;
             lblKeyboardTip.AutoSize = false;
             lblKeyboardTip.Width = this.ClientSize.Width;
-            lblKeyboardTip.Height = 45;
+            lblKeyboardTip.Height = 70; // 增加高度以容納兩行文字
             lblKeyboardTip.TextAlign = ContentAlignment.MiddleCenter;
             lblKeyboardTip.Dock = DockStyle.Bottom;
             this.Controls.Add(lblKeyboardTip);
